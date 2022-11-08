@@ -3,6 +3,7 @@ package Concepts;
 //RECURSION
 // When recursion : Whenever we find Choice and Decision in the question
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 class SubsetsOfString {
@@ -143,4 +144,74 @@ class Sorting {
     }
 }
 
+class CheckingIfSorted {
+    public static void main(String[] args) {
+
+        int[] arr = {1, 5, 17, 9, 10, 15};
+
+        System.out.println(ifsorted(arr, 0));
+    }
+
+    static boolean ifsorted(int[] arr, int pointer) {
+        if(pointer == arr.length - 1) return true;
+
+        if(arr[pointer] > arr[pointer + 1]) return false;
+
+        return ifsorted(arr, pointer + 1);
+    }
+}
+
+class LinearSearch {
+    public static void main(String[] args) {
+        int[] arr = {2, 2, 2, 2, 4, 5, 7, 8, 9, 23};
+        int target = 2;
+
+//        System.out.println(firstIndex(arr, target, 0));
+//        System.out.println(lastIndex(arr, target, arr.length - 1));
+
+        System.out.println(func(arr, target, 0));
+    }
+
+    static int findIndex(int[] arr, int target, int index) {
+
+        if(index == arr.length) return -1;
+
+        if(arr[index] == target) return index;
+        return findIndex(arr, target, index + 1);
+    }
+
+    static boolean exist(int[] arr, int target, int index) {
+        if(index == arr.length) return false;
+
+        return arr[index] == target || exist(arr, target, index + 1);
+    }
+
+    static int firstIndex(int[] arr, int target, int index) {
+        if(index == arr.length) return -1;
+        if(arr[index] == target) return index;
+
+        return firstIndex(arr, target, index + 1);
+    }
+
+    static int lastIndex(int[] arr, int target, int index) {
+        if(index < 0) return -1;
+        if(arr[index] == target) return index;
+
+        return lastIndex(arr, target, index - 1);
+    }
+
+
+    // storing indexes using array list
+    // * do not pass list in argum ent
+    // * return type should be list. => creating list in each function call
+
+    static ArrayList<Integer> func(int[] arr, int target, int pointer) {
+        ArrayList<Integer> list = new ArrayList<>();
+        if(pointer == arr.length) return list;
+
+        if(arr[pointer] == target) list.add(pointer);
+        list.addAll(func(arr, target, pointer + 1));
+        return list;
+    }
+}
 
