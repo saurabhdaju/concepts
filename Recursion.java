@@ -118,10 +118,17 @@ class Factorial {
 
 class Sorting {
     public static void main(String[] args) {
-        int[] arr = {6,5,7,4,8,3,9,2,0,1};
-        InsertionSort(arr, 0, arr.length - 1);
+        int[] arr1 = {6, 5, 5, 7, 4, 8, 3, 9, 5, 2, 0, 1};
+//        InsertionSort(arr1, 0, arr1.length - 1);
 
-        System.out.println(Arrays.toString(arr));
+        int[] arr2 = {10, 12, 12, 6, 8, 2, 5, 0, 11};
+//        BubbleSort(arr2, 0, arr2.length - 1);
+
+//        SelectionSort(arr1, 0, arr1.length - 1, 0);
+
+        InsertionSort2(arr1, 1, 0);
+        System.out.println(Arrays.toString(arr1));
+
     }
 
     static void InsertionSort(int[] arr, int start, int end) {
@@ -140,6 +147,51 @@ class Sorting {
                     target--;
                 }
                 else break;
+            }
+        }
+    }
+
+    static void BubbleSort(int[] arr2, int start, int end) {
+        if(end == start && end != 0) BubbleSort(arr2, 0, end - 1);
+        if(end == start) return;
+        if(arr2[start] > arr2[start + 1]) {
+            int temp = arr2[start];
+            arr2[start] = arr2[start + 1];
+            arr2[start + 1] = temp;
+        }
+
+        BubbleSort(arr2, start + 1, end);
+    }
+
+    static void SelectionSort(int[] arr, int pointer, int end, int maxIdx) {
+        if(end == 0) return;
+        if(pointer > end) {
+            //swap
+            int temp = arr[maxIdx];
+            arr[maxIdx] = arr[end];
+            arr[end] = temp;
+            SelectionSort(arr, 0, end - 1, 0);
+            return;
+        }
+        else {
+            if (arr[pointer] > arr[maxIdx]) maxIdx = pointer;
+                SelectionSort(arr, pointer + 1, end, maxIdx);
+        }
+    }
+
+    static void InsertionSort2(int[] arr, int pointer, int comp) {
+        if(pointer > arr.length) return;
+        else {
+            if(comp - 1 >= 0 && arr[comp] <= arr[comp - 1]) {
+                    //swap
+                    int temp = arr[comp];
+                    arr[comp] = arr[comp - 1];
+                    arr[comp - 1] = temp;
+                    InsertionSort2(arr, pointer, --comp);
+            }
+
+            else {
+                InsertionSort2(arr, ++pointer, pointer - 1);
             }
         }
     }
@@ -243,6 +295,61 @@ class RotatedBinarySearch {
                 return search(arr, target, start, mid - 1);
             }
             else return search(arr, target, mid + 1, end);
+        }
+    }
+}
+
+
+class PatternPrinting {
+    public static void main(String[] args) {
+
+        int rows = 5;
+//        ultaTriangle(rows, rows);
+
+//        ultaTriangle2(0 ,0, rows);
+
+        seedhaTriangle(0, 0, rows);
+    }
+
+    static void ultaTriangle(int rows, int cols) {
+        if(rows == 0) return;
+        if(cols > 0) {
+            System.out.printf("* ");
+            ultaTriangle(rows, cols - 1);
+        }
+        else{
+            System.out.println();
+            ultaTriangle(rows - 1, rows - 1);
+        }
+    }
+
+    static void ultaTriangle2(int row, int col, int rows) {
+        if(row == rows) return;
+
+        if(col < rows - row) {
+            System.out.print("* ");
+            ultaTriangle2(row, col + 1, rows);
+        }
+
+        else {
+            System.out.println();
+            ultaTriangle2(row + 1, 0, rows);
+        }
+    }
+
+
+    //seedha triangle has the same code of ulta triangle 2, we have just changed the position of recursive calls haha...
+    static void seedhaTriangle(int row, int col, int rows) {
+        if(row == rows) return;
+
+        if(col < rows - row) {
+            seedhaTriangle(row, col + 1, rows);
+            System.out.print("* ");
+        }
+
+        else {
+            seedhaTriangle(row + 1, 0, rows);
+            System.out.println();
         }
     }
 }
