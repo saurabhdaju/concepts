@@ -126,8 +126,10 @@ class Sorting {
 
 //        SelectionSort(arr1, 0, arr1.length - 1, 0);
 
-        InsertionSort2(arr1, 1, 0);
-        System.out.println(Arrays.toString(arr1));
+//        InsertionSort2(arr1, 1, 0);
+
+        int[] ans = mergeSort(arr1);
+        System.out.println(Arrays.toString(ans));
 
     }
 
@@ -194,6 +196,53 @@ class Sorting {
                 InsertionSort2(arr, ++pointer, pointer - 1);
             }
         }
+    }
+
+    static int[] mergeSort(int[] arr) {
+        if(arr.length == 1) return arr;
+
+        else {
+            int mid = arr.length / 2;
+            int[] left = mergeSort(Arrays.copyOfRange(arr, 0, mid));
+            int[] right = mergeSort(Arrays.copyOfRange(arr, mid, arr.length));
+
+            return merge(left, right);
+        }
+    }
+
+    static int[] merge(int[] left, int[] right) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        int[] sorted = new int[left.length + right.length];
+
+        while(i < left.length && j < right.length) {
+            if(left[i] < right[j]) {
+                sorted[k] = left[i];
+                i++;
+            }
+            else {
+                sorted[k] = right[j];
+                j++;
+            }
+
+            k++;
+        }
+
+        while(i < left.length) {
+            sorted[k] = left[i];
+            i++;
+            k++;
+        }
+
+        while(j < right.length) {
+            sorted[k] = right[j];
+            j++;
+            k++;
+        }
+
+        return sorted;
     }
 }
 
@@ -353,3 +402,4 @@ class PatternPrinting {
         }
     }
 }
+
