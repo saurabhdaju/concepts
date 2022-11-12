@@ -128,9 +128,13 @@ class Sorting {
 
 //        InsertionSort2(arr1, 1, 0);
 
-        int[] ans = mergeSort(arr1);
-        System.out.println(Arrays.toString(ans));
+//        int[] ans = mergeSort(arr1);
+//        System.out.println(Arrays.toString(ans));
 
+
+        int[] arr3 = {7, 4, 6, 0, 1, 3};
+        quickSort(arr2, 0, arr2.length - 1);
+        System.out.println(Arrays.toString(arr2));
     }
 
     static void InsertionSort(int[] arr, int start, int end) {
@@ -243,6 +247,35 @@ class Sorting {
         }
 
         return sorted;
+    }
+
+    
+    static void quickSort(int[] arr, int low, int high) {
+        if(low >= high) return;
+
+        int start = low;
+        int end = high;
+        int pivot = arr[low + (high - low) / 2];
+
+        while(start <= end) {
+            //if the array is already sorted it will not swap     i.e. why we prefer it over merge sort
+            while(arr[start] < pivot) start++;
+
+            while(arr[end] > pivot) end--;
+
+            if(start <= end) {
+                //swap
+                int temp = arr[start];
+                arr[start] = arr[end];
+                arr[end] = temp;
+                start++;
+                end--;
+            }
+        }
+
+        quickSort(arr, low, end);
+        quickSort(arr, start, high);
+
     }
 }
 
