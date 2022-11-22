@@ -7,25 +7,36 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-class SubsetsOfString {
+class SubsequenceOfString {
     public static void main(String[] args) {
-        String str = "abcd";
+        String str = "abc";
         String output = "";
-        subsets(str, output);
+        System.out.println(subseq(str, output));
     }
 
     static void subsets(String input, String output) {
         //Base condition
         //If the input size is 1 then we have reached the 2nd last node of the recursion tree;
-        if(input.length() == 1) {
+        if(input.isEmpty()) {
             System.out.println(output);
-            System.out.println(output + input.charAt(0));
         }
 
         else {
             subsets(input.substring(1), output);
             subsets(input.substring(1), output + input.charAt(0));
         }
+    }
+
+    static ArrayList<String> subseq(String input, String output){
+        ArrayList<String> list = new ArrayList<>();
+        if(input.isEmpty()) {
+            list.add(output);
+            return list;
+        }
+
+        list.addAll(subseq(input.substring(1), output + input.charAt(0)));
+        list.addAll(subseq(input.substring(1), output));
+        return list;
     }
 }
 
@@ -249,7 +260,7 @@ class Sorting {
         return sorted;
     }
 
-    
+
     static void quickSort(int[] arr, int low, int high) {
         if(low >= high) return;
 
@@ -435,4 +446,7 @@ class PatternPrinting {
         }
     }
 }
+
+
+
 
